@@ -3,8 +3,9 @@ import geopandas as gpd
 
 class TaxiBlockCount:
 
-	def __init__(self, path):
-		self.path = path
+	def __init__(self, input_path, output_path):
+		self.path = input_path
+		self.output_path = output_path
 		# We specify these to speed up the parsing process. Otherwise pandas would have to infer them itself
 		self.column_dtypes = {'VendorID' : int, 'tpep_pickup_datetime' : None, 'tpep_dropoff_datetime' : None,
 		               'passenger_count': int, 'trip_distance': float, 'pickup_longitude' : float,
