@@ -8,7 +8,7 @@
 **[Click for live Map](https://juanluisrto.carto.com/kuviz/33e60974-6f72-49c5-89d5-e50de658eadb)** 
 
 
-In this project I have explored the [TLC Trip Record Dataset](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page) with data about taxi trips taken place in New York (Jan, Apr, July 2015).
+In this project I have explored the [TLC Trip Record Dataset](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page) with data about taxi trips taken place in New York (Jan, Apr, July 2015). You can take a look at this dataset´s specifications in this [document](files/data_dictionary_trip_records_yellow.pdf)
 
 It comprised 3 different steps:
 
