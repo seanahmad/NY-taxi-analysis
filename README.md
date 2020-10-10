@@ -22,4 +22,4 @@ I define a linear regression model in order to predict the number of taxi pickup
 Check out [Modelling.ipynb](/Modelling.ipynb) for more details.
 
 ### Map visualization
-I publish a [map](https://juanluisrto.carto.com/kuviz/33e60974-6f72-49c5-89d5-e50de658eadb) which showcases the the difference between the predictions of my model and the real valus
+I published a [map](https://juanluisrto.carto.com/kuviz/33e60974-6f72-49c5-89d5-e50de658eadb) which showcases the predictions of my model and the real values
