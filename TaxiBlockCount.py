@@ -110,3 +110,51 @@ class TaxiBlockCount:
 		pickup_counts = pd.DataFrame(pickup_counts, columns=["count"])
 		pickup_counts.to_csv(os.path.join(path,file_name))
 
+
+
+
+from sklearn.preprocessing import StandardScaler
+from  sklearn.model_selection import train_test_split 
+from scipy import stats
+
+def data_transformation(input_data, remove_outliers = True, target = "target", log_transform = ["target"]):
+
+       
+    model_data = input_data.copy()
+    has_geometry = "geometry" in input_data.columns.values
+
+    if has_geometry:
+    	geometry = model_data["geometry"]
+    	model_data.drop("geometry", axis = 1, inplace=True)
+
+    # Transforming columns with log
+    for col in log_transform:
+        model_data[col] =  np.log10(1 + model_data[col])
+
+    # Scaling the data
+    scl = StandardScaler()
+    model_data_std = scl.fit_transform(model_data)
+    model_data_std = pd.DataFrame(model_data_std, columns= model_data.columns, index = model_data.index)
+
+    #Removing outliers
+    if remove_outliers:
+        model_data_std = model_data_std[(np.abs(stats.zscore(model_data)) < 3).all(axis = 1)]
+
+    X = model_data_std.drop([target], axis = 1)
+    y = model_data_std[target]
+
+    if has_geometry:
+    	X["geometry"] = geometry[X.index]
+    
+    return X, y, scl
+
+
+def reverse_transformation(X, scl, pred = None):
+    standard_matrix = pd.DataFrame(X)
+    if pred is not None:
+        standard_matrix["target"] = pred
+    original_matrix = scl.inverse_transform(standard_matrix) # we destandarized the data
+    #log_pickups = original_matrix[:,-1] # We select the last column
+    original_pickups = np.power(10, original_matrix) + 1 # We invert the log transformation
+    rounded_pickups = np.round(original_pickups, decimals = 0).astype(np.int64)
+    return pd.DataFrame(rounded_pickups, index = X.index, columns= X.columns)
